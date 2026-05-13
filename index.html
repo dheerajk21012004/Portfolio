@@ -92,7 +92,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);
 /* The actual panel */
 #panel{
   width:100%;
-  height:min(560px,calc(100vh - 160px));
+  height:min(560px,calc(100dvh - 160px));
   background:var(--glass);
   border:1px solid rgba(0,255,255,0.28);
   border-radius:12px;
@@ -330,15 +330,95 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);
 .pc-hint{font-size:7.5px;color:rgba(0,255,255,0.35);letter-spacing:1px;
   margin-top:8px;text-align:right;transition:color .2s;}
 .pc:hover .pc-hint{color:rgba(0,255,255,0.6);}
-/* ── MOBILE ── */
-@media(max-width:640px){
-  #sidenav{display:none;}
-  #holo-outer{width:calc(100vw - 80px);}
+/* ── RESPONSIVE ── */
+
+/* Tablet (641–1024px) */
+@media(max-width:1024px){
+  #sidenav{width:130px;}
+  .sni{font-size:9px;padding:10px 14px;}
+  #holo-outer{width:calc(100vw - 180px);}
   .pg{grid-template-columns:1fr 1fr;}
-  .arr{width:32px;height:60px;font-size:22px;}
-  #arrl{left:4px;}#arrr{right:4px;}
+  #panel{height:min(520px,calc(100dvh - 150px));}
 }
-@media(max-width:400px){.pg{grid-template-columns:1fr;}}
+
+/* Mobile (≤640px) — no side nav, full-width panel */
+@media(max-width:640px){
+  /* Hide side nav — use taskbar + arrows only */
+  #sidenav{display:none;}
+
+  /* Panel fills available width between arrows */
+  #holo-outer{width:calc(100vw - 76px);}
+  #panel{
+    height:calc(100dvh - 110px);
+    border-radius:8px;
+  }
+
+  /* Arrows smaller, tighter to edges */
+  .arr{width:28px;height:56px;font-size:20px;border-radius:4px;}
+  #arrl{left:4px;}
+  #arrr{right:4px;}
+
+  /* Dot nav closer to bottom */
+  #dotnav{bottom:8px;}
+
+  /* Project grid: 2 columns */
+  .pg{grid-template-columns:1fr 1fr;gap:7px;}
+  .pc{padding:9px;}
+  .ptx{font-size:8px;}
+  .ptc{font-size:7px;}
+  .prl li{font-size:7.5px;}
+  .pc-hint{font-size:7px;}
+
+  /* Skills terminal smaller text */
+  .term{font-size:9.5px;line-height:1.9;}
+
+  /* Profile info grid stacked */
+  .ig{grid-template-columns:1fr 1fr;}
+  .ph{gap:12px;}
+  .av{width:48px;height:48px;font-size:20px;}
+  .pn{font-size:13px;}
+  .pr{font-size:8px;}
+  .ps{font-size:8px;}
+  .slb{width:90px;font-size:8px;}
+
+  /* Taskbar compact */
+  #tkbl{display:none;}
+  .ta{font-size:8px;padding:2px 7px;}
+  #tst{display:none;}
+  #clk{font-size:9px;}
+
+  /* Status bar compact */
+  #statusbar{font-size:7px;padding:4px 10px;}
+
+  /* Chrome compact */
+  #chrome{padding:8px 12px;}
+  #ptitle{font-size:9px;letter-spacing:2px;}
+
+  /* Content padding */
+  #content{padding:14px;}
+
+  /* Boot text smaller */
+  #boot-text{font-size:10px;}
+  #boot-logo{font-size:clamp(20px,6vw,36px);letter-spacing:8px;}
+
+  /* Modal nearly full screen */
+  #modal{width:94vw;max-height:88dvh;border-radius:10px;}
+  #modal-body{padding:16px;}
+  .ms-list li{font-size:9.5px;}
+
+  /* Hide decorative data streams on mobile */
+  .data-stream{display:none;}
+}
+
+/* Small mobile (≤400px) */
+@media(max-width:400px){
+  .pg{grid-template-columns:1fr;}
+  #holo-outer{width:calc(100vw - 68px);}
+  .ig{grid-template-columns:1fr;}
+  .abts{flex-direction:column;}
+  .abt{text-align:center;}
+  .term{font-size:8.5px;}
+}
 </style>
 </head>
 <body>
@@ -514,7 +594,8 @@ window.addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.upda
 
 // ── 3D PANEL TILT ─────────────────────────────────────────────────────
 const tiltEl=document.getElementById('tilt');
-let trx=0,try_=0,targetRX=0,targetRY=0,tiltActive=true;
+const isTouchDevice=('ontouchstart' in window)||navigator.maxTouchPoints>0;
+let trx=0,try_=0,targetRX=0,targetRY=0,tiltActive=!isTouchDevice;
 document.addEventListener('mousemove',e=>{
   mxBg=(e.clientX/innerWidth-.5)*2;
   myBg=-(e.clientY/innerHeight-.5)*2;
@@ -523,12 +604,7 @@ document.addEventListener('mousemove',e=>{
   targetRY=(e.clientX/innerWidth-.5)*14;
 });
 // Touch tilt
-document.addEventListener('touchmove',e=>{
-  const t=e.touches[0];
-  if(!tiltActive)return;
-  targetRX=-(t.clientY/innerHeight-.5)*8;
-  targetRY=(t.clientX/innerWidth-.5)*10;
-},{passive:true});
+// No tilt on touch — swipe handles navigation instead
 function tiltLoop(){
   requestAnimationFrame(tiltLoop);
   if(!tiltActive){trx+=(0-trx)*.08;try_+=(0-try_)*.08;}
@@ -868,7 +944,7 @@ function _animate(dir){
     // Instant (first load)
     content.innerHTML=builders[curr]();
     activateContent();
-    busy=false;tiltActive=true;
+    busy=false;tiltActive=!isTouchDevice;
     return;
   }
 
@@ -890,7 +966,7 @@ function _animate(dir){
       tiltEl.style.transform='rotateX(0deg) rotateY(0deg) scale(1)';
       tiltEl.style.opacity='1';
       activateContent();
-      setTimeout(()=>{busy=false;tiltActive=true;},440);
+      setTimeout(()=>{busy=false;tiltActive=!isTouchDevice;},440);
     }));
   },300);
 }
