@@ -636,7 +636,7 @@ const BOOT=[
   {t:'Initialising computer vision modules  . . . . . .',d:110},
   {t:'[  OK  ]  OpenCV · MediaPipe · Grad-CAM ready',c:'ok'},
   {t:'Scanning project database  . . . . . . . . . . .',d:120},
-  {t:'[  OK  ]  9 projects indexed — 4 in production',c:'ok'},
+  {t:'[  OK  ]  8 projects indexed — 4 in production',c:'ok'},
   {t:'Verifying cloud credentials  . . . . . . . . . .',d:90},
   {t:'[  OK  ]  AWS Cloud Practitioner  ✓  certified',c:'ok'},
   {t:'Checking academic record  . . . . . . . . . . . .',d:80},
@@ -679,7 +679,7 @@ setTimeout(bNext,500);
 // ── PANEL CONTENT DATA ─────────────────────────────────────────────────
 const SECTIONS=[
   {title:'PROFILE.sys',path:'~/dheeraj/profile',cnt:'01 / 04'},
-  {title:'PROJECTS.db',path:'~/dheeraj/projects — 9 records',cnt:'02 / 04'},
+  {title:'PROJECTS.db',path:'~/dheeraj/projects — 8 records',cnt:'02 / 04'},
   {title:'SKILLS.scan',path:'~/dheeraj/skills — 40+ tools',cnt:'03 / 04'},
   {title:'CONTACT.msg',path:'~/dheeraj/contact',cnt:'04 / 04'},
 ];
@@ -687,16 +687,17 @@ const SIDENAV=['PROFILE','PROJECTS','SKILLS','CONTACT'];
 const TASKBAR=['profile','projects','skills','contact'];
 
 const PROJ=[
-  {t:'MULTILINGUAL AI CHATBOT',tc:'LLM · LoRA · PEFT · FastAPI · SQLite · Gradio',a:'#00ffff',
-   r:['90%+ param reduction via LoRA','Self-improving production system','English · Hindi · Hinglish'],
+  {t:'INTERVIEWIQ',tc:'FastAPI · React · Vite · Claude API · MediaPipe · Web Speech API · ReportLab',a:'#00ffff',
+   r:['Full-stack AI interview coaching app','Live body language analysis in-browser','Deployed on Render.com'],
    d:[
-    'Fine-tuned mBART using LoRA on a custom 1,000+ pair dataset built from WhatsApp exports, YouTube transcripts, and Reddit — no off-the-shelf datasets used',
-    'Reduced trainable parameters by over 90% compared to full fine-tuning while preserving model quality across three languages',
-    'Engineered a dynamic prompt lifecycle layer that adapts tone and context across English, Hindi, and Hinglish conversations',
-    'Built a FastAPI microservice REST API handling real-time inference requests with low latency',
-    'Implemented a SQLite-backed continuous learning pipeline — model monitors its own outputs and triggers retraining automatically',
-    'Deployed via Gradio web interface; trained entirely on a local NVIDIA RTX 3060 with no cloud infrastructure',
-    'Every architectural decision made independently — no templates, no external guidance, runs in production',
+    'Converted a desktop Python/Pygame prototype into a production full-stack web app — FastAPI backend, React + Vite frontend, deployed on Render.com',
+    'Integrated the Anthropic Claude API server-side to dynamically generate personalised interview questions from company name, job title, and the candidate\'s uploaded CV',
+    'Claude evaluates each answer with detailed scoring and improvement tips, adapted to the specific role and company',
+    'Built a real-time body language analyser using MediaPipe Holistic running entirely in the browser — detects eye contact, head tilt, face touches, and hand fidgeting live during the interview',
+    'Implemented an animated 2D avatar interviewer ("Alex") rendered on HTML5 Canvas, with mouth animation synced to the browser\'s Speech Synthesis API for spoken questions',
+    'Used the Web Speech Recognition API to transcribe candidate answers in real time — no audio ever sent to a server',
+    'Generated downloadable PDF performance reports using ReportLab, served directly from the FastAPI backend',
+    'Secured the Anthropic API key entirely server-side — users access the full app without ever seeing or entering credentials',
    ]},
   {t:'OCULOMICS',tc:'CNN · Vision Transformer · Grad-CAM · PyTorch · Transfer Learning',a:'#a855f7',
    r:['0.85–0.95 diagnostic accuracy target','Retinal disease detection','Clinical explainability built-in'],
@@ -719,17 +720,6 @@ const PROJ=[
     'Managed the entire pipeline solo: data collection, annotation, model architecture selection, hyperparameter tuning, and benchmarking',
     'Deployed as a publicly accessible live web application with real-time camera inference running in the browser',
     'Zero external guidance, zero templates — greenfield to production entirely independently',
-   ]},
-  {t:'DEEPDETECT',tc:'CNN-LSTM · Librosa · TensorFlow · NumPy · Streamlit',a:'#f59e0b',
-   r:['Real vs AI voice discrimination','Mel-spectrogram feature pipeline','Streamlit live inference'],
-   d:[
-    'Built a deep learning pipeline to distinguish real human voices from AI-generated synthetic speech',
-    'Used Librosa to preprocess raw WAV audio files — resampling, trimming, normalisation, and feature extraction',
-    'Converted audio into Mel-spectrogram representations as inputs to the model, capturing time-frequency patterns',
-    'Trained a CNN-LSTM hybrid model: CNN extracts spatial features from spectrograms, LSTM captures temporal patterns',
-    'Model achieves high classification accuracy distinguishing authentic speech from AI clones',
-    'Deployed through a Streamlit web app allowing real-time audio upload and inference',
-    'Built as AI-generated voice fraud becomes a real-world security concern — directly applicable to current industry problems',
    ]},
   {t:'TOGETHER CULTURE',tc:'C# · MySQL · ETL Pipeline · Client Delivery · Cross-functional Team',a:'#ef4444',
    r:['Real NGO client in Cambridge','Replaced legacy Excel system','Industry-accepted delivery'],
@@ -795,7 +785,7 @@ const SKILLS=[
   {c:'tc2',v:'[ ML & AI FRAMEWORKS ]'},
   {c:'tv2',v:'  PyTorch  ·  TensorFlow  ·  Scikit-learn  ·  HuggingFace'},
   {c:'tc2',v:'[ LLM & GENERATIVE AI ]'},
-  {c:'tv2',v:'  LoRA  ·  PEFT  ·  mBART  ·  Prompt Engineering'},
+  {c:'tv2',v:'  Claude API (Anthropic)  ·  LoRA  ·  PEFT  ·  mBART  ·  Prompt Engineering'},
   {c:'tv2',v:'  OpenAI Whisper  ·  Tokenization  ·  Embeddings  ·  Multilingual NLP'},
   {c:'tc2',v:'[ COMPUTER VISION ]'},
   {c:'tv2',v:'  OpenCV  ·  MediaPipe  ·  CNNs  ·  ViT  ·  Grad-CAM  ·  XAI'},
@@ -808,7 +798,7 @@ const SKILLS=[
   {c:'tc2',v:'[ CLOUD & TOOLS ]'},
   {c:'tv2',v:'  AWS (Certified)  ·  Docker (keen)  ·  Azure (keen)  ·  GCP (keen)'},
   {c:'tdm2',v:'────────────────────────────────────────────────'},
-  {c:'tok2',v:'[SCAN COMPLETE]  40+ tools verified across 8 domains'},
+  {c:'tok2',v:'[SCAN COMPLETE]  41+ tools verified across 8 domains'},
 ];
 
 // ── CONTENT BUILDERS ──────────────────────────────────────────────────
